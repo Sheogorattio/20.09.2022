@@ -22,7 +22,17 @@ public:
 	template<typename A>
 	Matrix<T>& operator=(const A a);
 	template<typename A>
+	Matrix<T> operator-(const A a);
+	template<typename A>
 	Matrix<T> operator+(const A a);
+	template<typename A>
+	Matrix<T> operator*(const A a);
+	template<typename A>
+	Matrix<T> operator/(const A a);
+	Matrix<T>& operator++();
+	Matrix<T> operator++(int);
+	Matrix<T>& operator--();
+	Matrix<T> operator--(int);
 	bool operator>(const Matrix<T>& obj);
 	bool operator<(const Matrix<T>& obj);
 	bool operator==(const Matrix<T>& obj);
@@ -30,6 +40,74 @@ public:
 	bool operator<=(const Matrix<T>& obj);
 	bool operator!=(const Matrix<T>& obj);
 };
+
+template<class T>
+template<typename A>
+Matrix<T> Matrix<T>::operator*(const A a) {
+	Matrix<T> obj = *this;
+	int col = stolb, lines = str;
+	for (int i = 0; i < lines; i++) {
+		for (int j = 0; j < col; j++) {
+			obj.mas[i][j] *= (int)a;
+		}
+	}
+	return obj;
+}
+
+template<class T>
+template<typename A>
+Matrix<T> Matrix<T>::operator/(const A a) {
+	Matrix<T> obj = *this;
+	int col = stolb, lines = str;
+	for (int i = 0; i < lines; i++) {
+		for (int j = 0; j < col; j++) {
+			obj.mas[i][j] /= (int)a;
+		}
+	}
+	return obj;
+}
+
+template<class T>
+Matrix<T> Matrix<T>::operator--(int) {
+	Matrix<T>obj = *this;
+	for (int i = 0; i < str; i++) {
+		for (int j = 0; j < stolb; j++) {
+			mas[i][j]--;
+		}
+	}
+	return obj;
+}
+
+template<class T>
+Matrix<T> Matrix<T>::operator++(int) {
+	Matrix<T>obj = *this;
+	for (int i = 0; i < str; i++) {
+		for (int j = 0; j < stolb; j++) {
+			mas[i][j]++;
+		}
+	}
+	return obj;
+}
+
+template<class T>
+Matrix<T>& Matrix<T>::operator++() {
+	for (int i = 0; i < str; i++) {
+		for (int j = 0; j < stolb; j++) {
+			mas[i][j]++;
+		}
+	}
+	return *this;
+}
+
+template<class T>
+Matrix<T>& Matrix<T>::operator--() {
+	for (int i = 0; i < str; i++) {
+		for (int j = 0; j < stolb; j++) {
+			mas[i][j]--;
+		}
+	}
+	return *this;
+}
 
 template<class T>
 bool Matrix<T>::operator>(const Matrix<T>& obj) {
@@ -137,6 +215,19 @@ Matrix<T> operator+(A a, Matrix<T> obj) {
 		}
 	}
 	return obj1;
+}
+
+template<class T>
+template<typename A>
+Matrix<T> Matrix<T>::operator-(const A a) {
+	Matrix<T> obj = *this;
+	int col = stolb, lines = str;
+	for (int i = 0; i < lines; i++) {
+		for (int j = 0; j < col; j++) {
+			obj.mas[i][j] -= (int)a;
+		}
+	}
+	return obj;
 }
 
 template<class T>
